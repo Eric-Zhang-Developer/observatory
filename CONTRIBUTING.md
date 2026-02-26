@@ -4,7 +4,7 @@ Thank you for taking the time to contribute! We're excited to have you here 🙌
 
 ## Table of Contents
 
-- [How to Contribute](#ways-to-contribute)
+- [How to Contribute](#how-to-contribute)
 - [Getting Started](#getting-started)
 - [Project Structure](#project-structure)
 - [Development Workflow](#development-workflow)
@@ -181,20 +181,44 @@ Now you can make changes to the widget package and see them reflected in real-ti
    - Changes to the package require a rebuild
    - The `pnpm dev` watch mode will automatically rebuild on file changes
 
-### Commit Message Conventions
+### Commit Messages
 
-Please use the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) format for commit messages:
+Every commit message must follow this format: `type(scope): description`
 
-`<type>(<scope>): <description>`
+Commit messages control version bumps and changelogs automatically. CI reads your commit type to decide whether to publish a patch, minor, or major release.
+
+| Prefix | Version bump |
+|--------|-------------|
+| `fix(scope):` | patch |
+| `perf(scope):` | patch |
+| `feat(scope):` | minor |
+| `feat(scope)!:` | major |
+| `docs:` `chore:` `refactor:` `test:` `ci:` `style:` | no release |
+
+Scopes: `otel`, `widget`, `claude`, `mastra`, `custom`, `api`, `python`
+
+Omit scope for repo-wide changes: `chore: upgrade dependencies`
 
 **Examples:**
 
 ```
-feat(otel): add support for custom span attributes
-fix(widget): resolve drag-and-drop positioning bug
+fix(widget): prevent popover from rendering off-screen
+fix(python): handle None metadata without crashing
+feat(otel): add custom span attribute support
+feat(python): add trace_id field to runs
+feat(otel)!: drop Node 16 support
 docs: update installation instructions
 chore: upgrade dependencies
 ```
+
+### Releases
+
+Never edit version numbers manually. CI handles everything on merge to `main`:
+
+- **TypeScript** — uses [Changesets](https://github.com/changesets/changesets). When you change a TS package, add a changeset file via `pnpm changeset`. CI opens a "Version Packages" PR; merging it publishes to npm.
+- **Python** — uses [python-semantic-release](https://python-semantic-release.readthedocs.io/). CI reads your commit messages automatically. A `fix(python):` commit publishes a patch; `feat(python):` publishes a minor.
+
+The two pipelines are completely independent. A TS-only merge won't touch Python, and vice versa.
 
 ### Submitting Changes
 
