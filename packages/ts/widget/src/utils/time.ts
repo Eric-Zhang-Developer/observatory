@@ -34,16 +34,23 @@ export const recursivelyInjectDateFields = (fields: unknown): unknown => {
 export const getAgoString = (date: Date): string => {
   const now = new Date();
   const diff = now.getTime() - date.getTime();
-  if (diff < 1000) {
+  if (diff < 1000) { // 1 second 
     return "just now";
-  } else if (diff < 60000) {
+  } else if (diff < 60000) { // 1 minute 
     return `${Math.floor(diff / 1000)}s ago`;
-  } else if (diff < 3600000) {
+  } else if (diff < 3600000) {  // 1 hour 
     return `${Math.floor(diff / 60000)}m ago`;
-  } else if (diff < 86400000) {
+  } else if (diff < 86400000) { // 1 day
     return `${Math.floor(diff / 3600000)}h ago`;
+  } else if (diff < 604800000) { // 1 week
+    return `${Math.floor(diff / 86400000)}d ago`;
+  } else if (diff < 2592000000) {  // 1 month
+    return `${Math.floor(diff / 604800000)}w ago`;
+  } else if (diff < 31536000000) { // 1 year
+    return `${Math.floor(diff / 2592000000)}mo ago`;
+  } else { // Over 1 year 
+    return `${Math.floor(diff / 31536000000)}y ago`;
   }
-  return "forever ago"; // todo lol
 };
 
 export const nanosToSeconds = (nanos: number, toFixed: number = 3) => {
