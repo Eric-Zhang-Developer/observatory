@@ -10,7 +10,8 @@
     "README.md"
   ],
   "openclaw": {
-    "extension": "src/index.ts"
+    "extensions": ["src/index.ts"],
+    "plugin": "openclaw.plugin.json"
   },
   "main": "dist/index.cjs",
   "module": "dist/index.js",
