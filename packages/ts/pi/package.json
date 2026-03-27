@@ -1,7 +1,7 @@
 {
-  "name": "@contextcompany/mastra",
+  "name": "@contextcompany/pi",
   "version": "1.0.0",
-  "description": "The Context Company integration for Mastra",
+  "description": "The Context Company instrumentation for Pi Agent SDK",
   "type": "module",
   "files": [
     "dist",
@@ -21,8 +21,11 @@
     "build": "tsup",
     "dev": "pnpm build --watch"
   },
+  "sideEffects": false,
   "keywords": [
-    "mastra",
+    "pi",
+    "pi-mono",
+    "agent",
     "observability",
     "tracing",
     "monitoring",
@@ -31,7 +34,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/The-Context-Company/observatory",
-    "directory": "packages/ts/mastra"
+    "directory": "packages/ts/pi"
   },
   "license": "MIT",
   "publishConfig": {
@@ -41,13 +44,12 @@
     "node": ">=18.0.0"
   },
   "peerDependencies": {
-    "@mastra/core": "^0.24.0"
+    "@mariozechner/pi-coding-agent": ">=0.50.0"
   },
   "dependencies": {
     "@contextcompany/api": "workspace:*"
   },
   "devDependencies": {
-    "@mastra/core": "^0.24.6",
     "@types/node": "^20",
     "tsup": "^8.5.0",
     "typescript": "^5.9.3"
