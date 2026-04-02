@@ -17,7 +17,7 @@ afterEach(() => {
 });
 
 describe("time.ts", () => {
-  describe("getTimeAgo", () => {
+  describe("getAgoString", () => {
     it("returns 'just now' for a sub second diff", () => {
       const date = new Date("2026-01-01T00:00:00.000Z");
       expect(getAgoString(date)).toBe("just now");
@@ -88,7 +88,7 @@ describe("time.ts", () => {
   // 2026-01-01T00:00:00.000Z is December 31, 2025 at 07:00 PM for New York
   describe("formatDate", () => {
     it("formats properly for American dating system", () => {
-      const date = new Date("2026-01-01T22:00:00.000Z");
+      const date = new Date(2026, 0, 1, 12, 0, 0, 0);
       expect(formatDate(date)).toContain("January 1, 2026");
     });
 
@@ -101,17 +101,17 @@ describe("time.ts", () => {
   // accessing a missing object key in JS returns undefined
   describe("getMsToFinish", () => {
     it("returns the value when attribute exists", () => {
-      const attributes = { "ai.response.msToFinish": 1500 };
+      const attributes: Record<string, unknown> = { "ai.response.msToFinish": 1500 };
       expect(getMsToFinish(attributes)).toBe(1500);
     });
 
     it("returns undefined when attribute is missing", () => {
-      const attributes = {};
+      const attributes: Record<string, unknown> = {};
       expect(getMsToFinish(attributes)).toBeUndefined();
     });
 
     it("returns undefined for unrelated attributes", () => {
-      const attributes = { "ai.response.someOtherThing": 1500 };
+      const attributes: Record<string, unknown> = { "ai.response.someOtherThing": 1500 };
       expect(getMsToFinish(attributes)).toBeUndefined();
     });
   });
